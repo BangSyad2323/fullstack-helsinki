@@ -30,7 +30,7 @@ sequenceDiagram
 
     browser->>server: GET [https://studies.cs.helsinki.fi/exampleapp/data.json](https://studies.cs.helsinki.fi/exampleapp/data.json)
     activate server
-    server-->>browser: [{ "content": "Your new note", "date": "2026-07-22" }, ... ]
+    server-->>browser: [{ "content": "hidup jokowi", "date": "2026-07-22" }, ... ]
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes using the DOM API
