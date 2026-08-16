@@ -1,31 +1,37 @@
-const Header = ({name}) => <h1>{name}</h1>
+const Header = ({name}) => <h1>{name.name}</h1>
 
 const Content = ({content}) => {
 
-const total = content.reduce((s, p) => s + p.exercises, 0)
-    
-return(
-    <div>
+    const total = content.reduce((s, p) => s + p.exercises, 0)
+        
+    return (
         <div>
-            {content.map(part => 
-                <p key={part.id}>
-                    {part.name} {part.exercises}
-                </p>
-            )}
+            <div>
+                {content.map(part => 
+                    <p key={part.id}>
+                        {part.name} {part.exercises}
+                    </p>
+                )}
+            </div>
+            <div>
+                Total of {total} exercise
+            </div>
         </div>
-        <div>
-            Total of {total} exercise
-        </div>
-    </div>
     )
 }
 
-export const Course = ({course}) => {
-    console.log(course)
+export const Course = ({courses}) => {
+    console.log(courses)
     return (
         <div>
-        <Header name={course.name} />
-        <Content content={course.parts}/>
+            {courses.map(cours => 
+            <div>
+                 <Header key={cours.id} name={cours} />
+                 <Content key={cours.id} content={cours.parts}/>
+            </div>
+            )}
+       
+        
         </div>
     )
 }
