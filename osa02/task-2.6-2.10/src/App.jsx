@@ -20,6 +20,14 @@ const App = () => {
     const payload = {
       name: newName
     }
+
+    const isExsist = persons.some(person => person.name === newName)
+
+    if (isExsist) {
+      alert(`${newName} alredy exist`)
+
+      return ;
+    }
     setPersons(persons.concat(payload))
 
     setNewName("")
