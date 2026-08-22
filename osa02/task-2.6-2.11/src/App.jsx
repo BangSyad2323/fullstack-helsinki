@@ -6,6 +6,10 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
 
+// service
+import getAll from './services/noteService'
+import noteService from './services/noteService'
+
 const App = () => {
 
   const [persons, setPersons] = useState([ ])
@@ -14,18 +18,12 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  
-  // get data
-  const getData = () => {
-    console.log('effect')
-    axios.get('http://localhost:3001/persons')
-    .then(response => {
-      console.log('promise fullfield')
-      setPersons(response.data)
-    })
-  }
-
-  useEffect(getData, [])
+  useEffect( () => {
+    noteService.getAll()
+    .then(data => {
+      setPersons(data)
+    })}
+    , [])
 
   // filter
   const handleFilter = () => {
@@ -69,9 +67,14 @@ const App = () => {
       alert(`${newName} alredy exist`)
       return ;
     }
-    setPersons(persons.concat(payload))
-    setNewName("")
-    setNewNumber("")
+
+    noteService.create(payload)
+    .then(data => {
+      setPersons(persons.concat(data))
+      setNewName("")
+      setNewNumber("")
+    })
+  
   }
 
   return (
