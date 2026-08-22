@@ -9,11 +9,11 @@ import Person from './components/Person'
 // service
 import getAll from './services/noteService'
 import noteService from './services/noteService'
+import deletePhone from './services/noteService'
 
 const App = () => {
 
   const [persons, setPersons] = useState([ ])
-  
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
@@ -77,6 +77,20 @@ const App = () => {
   
   }
 
+  const handleDelete = (id) => {
+    console.log(`tombol ${id} diklik`)
+    if (window.confirm("are you delete this phonenumber?")) {
+      noteService.deletePhone(id)
+      .then( () => {
+        setPersons(persons.filter(person => person.id != id));
+        alert('succes to delete note')
+      })
+      .catch(error => {
+        alert('failed to delete this phone')
+      })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -103,6 +117,7 @@ const App = () => {
           <Person
             key={person.id}
             person={person}
+            deletePerson={() => handleDelete(person.id)}
           />
         )}
       </div>
@@ -110,5 +125,7 @@ const App = () => {
   )
 
 }
+
+// gatau kenapa handle delete masih eror
 
 export default App
