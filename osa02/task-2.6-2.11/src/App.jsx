@@ -10,6 +10,7 @@ import Person from './components/Person'
 import getAll from './services/noteService'
 import noteService from './services/noteService'
 import deletePhone from './services/noteService'
+import changePhone from './services/noteService'
 
 const App = () => {
 
@@ -61,11 +62,22 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1
     }
-    const isExsist = persons.some(person => person.name === newName)
+    const existingPerson = persons.find(person => person.name === newName)
 
-    if (isExsist) {
-      alert(`${newName} alredy exist`)
-      return ;
+    if (existingPerson) {
+      if (window.confirm(`${newName} is alredy added to phonebook, replace the old number with a new one`)) {
+        const changePerson = {...existingPerson, number: newNumber}
+        noteService.changePhone(existingPerson.id, changePerson)
+        .then(returnedPerson => {
+          setPersons(persons.map(person => person.id !== existingPerson.id ? person : returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
+        .catch(error =>{
+          "failed edit"
+        })
+      }
+      return
     }
 
     noteService.create(payload)

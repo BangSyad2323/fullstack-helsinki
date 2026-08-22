@@ -19,8 +19,15 @@ const deletePhone = id => {
   return request.then(response => response.data)
 }
 
+const changePhone = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+
+  return request.then(response => response.data)
+}
+
 export default {
   getAll,
   create,
-  deletePhone
+  deletePhone,
+  changePhone
 }
