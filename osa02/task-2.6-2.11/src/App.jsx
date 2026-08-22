@@ -77,9 +77,9 @@ const App = () => {
   
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, name) => {
     console.log(`tombol ${id} diklik`)
-    if (window.confirm("are you delete this phonenumber?")) {
+    if (window.confirm(`delete ${name}`)) {
       noteService.deletePhone(id)
       .then( () => {
         setPersons(persons.filter(person => person.id != id));
@@ -117,7 +117,7 @@ const App = () => {
           <Person
             key={person.id}
             person={person}
-            deletePerson={() => handleDelete(person.id)}
+            deletePerson={() => handleDelete(person.id, person.name)}
           />
         )}
       </div>
