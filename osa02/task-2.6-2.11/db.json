@@ -2,68 +2,8 @@
   "persons": [
     {
       "name": "pendi",
-      "number": "pendi",
-      "id": "VMjvgcD6mt0"
-    },
-    {
-      "name": "luwak",
-      "number": "11111111",
-      "id": "h7iO-rkhU_Q"
-    },
-    {
-      "name": "fajar",
-      "number": "11111",
-      "id": "g1CXl8EyPqM"
-    },
-    {
-      "name": "ucrit",
-      "number": "43344",
-      "id": "AS7pGT2JgQo"
-    },
-    {
-      "name": "pendi",
-      "number": "",
-      "id": "hAyKoZQDahY"
-    },
-    {
-      "name": "pendi",
-      "number": "",
-      "id": "Jd37jrqWebo"
-    },
-    {
-      "name": "pendi",
-      "number": "",
-      "id": "IFSYkvk-wUU"
-    },
-    {
-      "name": "luwak",
-      "number": "",
-      "id": "nJ2rOrOX8Eg"
-    },
-    {
-      "name": "pendi",
-      "number": "454545",
-      "id": "W5vttBr7Ax4"
-    },
-    {
-      "name": "luwak",
-      "number": "343434343",
-      "id": "5HSetEF2CxE"
-    },
-    {
-      "name": "luwak",
-      "number": "78787878",
-      "id": "RNlEowWygw4"
-    },
-    {
-      "name": "pendi",
-      "number": "9999",
+      "number": "37737373",
       "id": "T8WzQkQGxWA"
-    },
-    {
-      "name": "luwak",
-      "number": "11111111",
-      "id": "fDZjTGmuFLI"
     },
     {
       "name": "fajar",
@@ -71,9 +11,19 @@
       "id": "6UKqb_b3shM"
     },
     {
-      "name": "pendi",
-      "number": "pendi",
-      "id": "fIPBvOmCnNE"
+      "name": "kebo",
+      "number": "anjai",
+      "id": "yxP-2ygPkmA"
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": "wOk19J3WGIM"
+    },
+    {
+      "name": "tekek",
+      "number": "67676",
+      "id": "sulQwTt-OXQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
