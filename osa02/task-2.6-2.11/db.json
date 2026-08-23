@@ -1,29 +1,14 @@
 {
   "persons": [
     {
-      "name": "pendi",
-      "number": "37737373",
-      "id": "T8WzQkQGxWA"
+      "name": "bajilak",
+      "number": "7777",
+      "id": "nP-d6vD7a1U"
     },
     {
-      "name": "fajar",
-      "number": "11111",
-      "id": "6UKqb_b3shM"
-    },
-    {
-      "name": "kebo",
-      "number": "anjai",
-      "id": "yxP-2ygPkmA"
-    },
-    {
-      "name": "",
-      "number": "",
-      "id": "wOk19J3WGIM"
-    },
-    {
-      "name": "tekek",
-      "number": "67676",
-      "id": "sulQwTt-OXQ"
+      "name": "tekekkkk",
+      "number": "4646644",
+      "id": "VelDEZY4sVg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

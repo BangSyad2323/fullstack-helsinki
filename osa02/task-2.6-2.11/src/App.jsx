@@ -18,7 +18,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [succes, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((data) => {
@@ -78,9 +78,9 @@ const App = () => {
                 person.id !== existingPerson.id ? person : returnedPerson,
               ),
             );
-            setSuccess(`changed number ${newName}`)
+            setMessage({text: `changed number ${newName}`, isError: false})
             setTimeout(() => {
-              setSuccess(null)
+              setMessage(null)
             }, 5000)
             setNewName("");
             setNewNumber("");
@@ -94,9 +94,9 @@ const App = () => {
 
     noteService.create(payload).then((data) => {
       setPersons(persons.concat(data));
-      setSuccess(`Added ${newName}`);
+      setMessage({text: `Added ${newName}`, isError: false});
       setTimeout(() => {
-        setSuccess(null);
+        setMessage(null);
       }, 5000);
       setNewName("");
       setNewNumber("");
@@ -113,7 +113,10 @@ const App = () => {
           alert("succes to delete note");
         })
         .catch((error) => {
-          alert("failed to delete this phone");
+          setMessage({text: `Information of${name} has alredy been remover from server`, isError: true})
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         });
     }
   };
@@ -122,7 +125,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={succes} />
+      <Notification message={message} />
 
       <Filter handleFilter={handleFilter} filter={filter} />
 
