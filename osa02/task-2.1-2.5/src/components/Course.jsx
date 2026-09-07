@@ -26,11 +26,11 @@ export const Course = ({courses}) => {
         <div>
             {courses.map(cours => 
             <div>
-                 <Header key={cours.id} name={cours} />
-                 <Content key={cours.id} content={cours.parts}/>
+                    <Header key={cours.id} name={cours} />
+                    <Content key={cours.id} content={cours.parts}/>
             </div>
             )}
-       
+      
         
         </div>
     )
