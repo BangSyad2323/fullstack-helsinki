@@ -109,8 +109,8 @@ const App = () => {
       noteService
         .deletePhone(id)
         .then(() => {
-          setPersons(persons.filter((person) => person.id != id));
-          alert("succes to delete note");
+          setPersons(persons.filter((person) => String(person.id) !== String(id)));
+        alert("Success to delete note");
         })
         .catch((error) => {
           setMessage({text: `Information of${name} has alredy been remover from server`, isError: true})
