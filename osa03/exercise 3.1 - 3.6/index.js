@@ -1,9 +1,13 @@
 import express from "express";
 import cors from "cors";
+import morgan from 'morgan'
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // 👈 Taruh ini dulu
+morgan.token('body', (req) => JSON.stringify(req.body))
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 let persons = [
   {
