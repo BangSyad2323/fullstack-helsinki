@@ -1,84 +1,88 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import morgan from 'morgan';
+import morgan from "morgan";
+import Phone from "./models/phone.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('dist')); 
+app.use(express.static("dist"));
 
-
-morgan.token('body', (req) => {
-  if (req.method === 'POST' && req.body && Object.keys(req.body).length > 0) {
+morgan.token("body", (req) => {
+  if (req.method === "POST" && req.body && Object.keys(req.body).length > 0) {
     return JSON.stringify(req.body);
   }
-  return '';
+  return "";
 });
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
 
-let persons = [
-  { id: "1", name: "Arto Hellas", number: "040-123456" },
-  { id: "2", name: "Ada Lovelace", number: "39-44-5323523" },
-  { id: "3", name: "Dan Abramov", number: "12-43-234345" },
-];
-
-
-app.get("/info", (req, res) => {
-  const sumpersons = persons.length;
-  const currentTime = new Date();
-  res.send(`
-    <p>Phonebook has info for ${sumpersons} people</p>
-    <p>${currentTime}</p>
-  `);
+app.get("/info", (req, res, next) => {
+  Phone.find({})
+    .then((persons) => {
+      const sumpersons = persons.length;
+      const currentTime = new Date();
+      res.send(`
+        <p>Phonebook has info for ${sumpersons} people</p>
+        <p>${currentTime}</p>
+      `);
+    })
+    .catch((error) => next(error));
 });
 
-app.get("/api/persons", (req, res) => {
-  res.json(persons);
+app.get("/api/persons", (req, res, next) => {
+  Phone.find({})
+    .then((persons) => {
+      res.json(persons);
+    })
+    .catch((error) => next(error));
 });
 
-app.get("/api/persons/:id", (req, res) => {
-  const id = req.params.id;
-  const payload = persons.find((person) => String(person.id) === String(id));
-
-  if (!payload) {
-    return res.status(404).json({ message: "person not found" });
-  }
-  res.json(payload);
+app.get("/api/persons/:id", (req, res, next) => {
+  Phone.findById(req.params.id)
+    .then((person) => {
+      if (person) {
+        res.json(person);
+      } else {
+        res.status(404).json({ message: "person not found" });
+      }
+    })
+    .catch((error) => next(error));
 });
 
-app.delete("/api/persons/:id", (req, res) => {
-  const id = req.params.id;
-  persons = persons.filter((person) => String(person.id) !== String(id));
-  
-  res.status(204).end();
+app.delete("/api/persons/:id", (req, res, next) => {
+  Phone.findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch((error) => next(error));
 });
 
-app.post("/api/persons", (req, res) => {
+app.post("/api/persons", (req, res, next) => {
   const { name, number } = req.body;
 
   if (!name || !number) {
     return res.status(400).json({ error: "name or number is missing" });
   }
 
-  const nameExists = persons.some((p) => p.name === name);
-  if (nameExists) {
-    return res.status(400).json({ error: "name must be unique" });
-  }
+  const person = new Phone({
+    name,
+    number,
+  });
 
-  const payload = {
-    id: String(Math.floor(Math.random() * 1000000)),
-    name: name,
-    number: number
-  };
-
-  persons.push(payload);
-  res.status(201).json(payload);
+  person
+    .save()
+    .then((savedPerson) => {
+      res.status(201).json(savedPerson);
+    })
+    .catch((error) => next(error));
 });
 
 const PORT = process.env.PORT || 3001;
-
 app.listen(PORT, () => {
-  console.log(`Server running on portt ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
