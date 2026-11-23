@@ -82,6 +82,25 @@ app.post("/api/persons", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+app.put("/api/persons/:id", (req, res, next) => {
+
+  const {name, number} = req.body;
+  Phone.findByIdAndUpdate(
+    req.params.id,
+    {name, number},
+    {new: true, runValidators: true, context: "query"}
+  ).then((updatedPerson) => {
+      if (updatedPerson) {
+        res.json(updatedPerson);
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
+
+
+});
+
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: "unknown endpoint" });
 };
